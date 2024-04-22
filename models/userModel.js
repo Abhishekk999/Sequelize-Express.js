@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import sequelize from "./index";
+import sequelize from "./index.js";
 
 const UserDetail = sequelize.define("UserDetails", {
     id: {

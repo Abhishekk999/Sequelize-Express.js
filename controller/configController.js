@@ -1,6 +1,6 @@
-import eResultCode from "../utility/enum";
-import ResponseModel from "../utility/responseModel";
-import ConfigModel from "../models/configModel";
+import eResultCode from "../utility/enum.js";
+import ResponseModel from "../utility/responseModel.js";
+import ConfigModel from "../models/configModel.js";
 
 const getMenuHierarchyList = async (req, res) => {
     try {

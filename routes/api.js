@@ -1,8 +1,8 @@
 import { Router } from "express";
-import authController from "../controller/authController";
-import userController from "../controller/userController";
-import authorize from "../middleware/authorize";
-import configController from "../controller/configController";
+import authController from "../controller/authController.js";
+import userController from "../controller/userController.js";
+import authorize from "../middleware/authorize.js";
+import configController from "../controller/configController.js";
 const router = Router();
 
 // Auth api route

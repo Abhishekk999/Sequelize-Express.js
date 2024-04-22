@@ -1,8 +1,8 @@
-import eResultCode from "../utility/enum";
-import UserDetail from "../models/userModel";
-import UserMaster from "../models/authModel";
-import ResponseModel from "../utility/responseModel";
-import validator from "../middleware/validator";
+import eResultCode from "../utility/enum.js";
+import UserDetail from "../models/userModel.js";
+import UserMaster from "../models/authModel.js";
+import ResponseModel from "../utility/responseModel.js";
+import validator from "../middleware/validator.js";
 
 const getUserList = async (req, res) => {
     try {

@@ -1,5 +1,5 @@
-import { verify } from 'jsonwebtoken';
-import UserMaster from "../models/authModel";
+import jwt from 'jsonwebtoken';
+import UserMaster from "../models/authModel.js";
 
 const secretKey = 'ExpressJs';
 const authorize = (req, res, next) => {
@@ -7,7 +7,7 @@ const authorize = (req, res, next) => {
     if (!token) {
         res.status(401).send({ message: "Unauthorize User" });
     } else {
-        verify(token, secretKey, async (err, decode) => {
+        jwt.verify(token, secretKey, async (err, decode) => {
             if (err) return res.status(401).send({ message: 'Invalid Token.', err: err });
             const user = await UserMaster.findOne({
                 where: {
