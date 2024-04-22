@@ -2,7 +2,7 @@
   "name": "sequelize-express.js",
   "version": "1.0.0",
   "description": "(Node.js with Express, Sequelize & PostgreSql)",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon --exec babel-node server.js"
   },
@@ -16,11 +16,15 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.5",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "validatorjs": "^3.22.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.4",

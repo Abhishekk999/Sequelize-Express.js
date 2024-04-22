@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/api";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
 
 const app = express();
 
@@ -16,6 +18,31 @@ app.get("/", (req, res) => {
 app.use(cors());
 
 app.use("/api", routes);
+
+const options = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Express API with Sequelize',
+            version: '1.0.0',
+            description: '',
+            contact: {
+                name: 'Abhishek Kushwaha',
+            },
+            servers: [{
+                url: 'http://localhost:4000'
+            }]
+        }
+    },
+    apis: ['./routes/api.js'],
+};
+
+const swaggerDocs = swaggerJsdoc(options);
+app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs)
+);
 
 // Catch-all route for undefined routes
 app.all("/*", (req, res) => {

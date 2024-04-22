@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import eResultCode from "../utility/enum"
 import UserMaster from "../models/authModel";
 import ResponseModel from "../utility/responseModel";
+import { decrypt, encrypt } from "../utility/encrypt-decrypt";
 const secretKey = 'ExpressJs';
 
 const login = async (req, res) => {
@@ -12,7 +13,8 @@ const login = async (req, res) => {
                 username: userName
             }
         });
-        if (user && password == user.password) {
+        const decryptedPassword = decrypt(password);
+        if (user && decryptedPassword == decrypt(user.password)) {
             const token = generateToken(user);
             const response = {
                 authToken: token,
@@ -47,6 +49,7 @@ const register = async (req, res) => {
                 username: userName
             }
         });
+        const encryptedPassword = encrypt(password);
         if (existingUser) {
             return res.status(200).json({
                 dataResponse: {
@@ -57,10 +60,10 @@ const register = async (req, res) => {
         }
 
         const newUser = await UserMaster.create({
-            username: userName,
-            emailid: emailId,
-            mobileno: mobileNo,
-            password,
+            userName,
+            emailId,
+            mobileNo,
+            password: encryptedPassword,
         });
         const response = ResponseModel(eResultCode.SUCCESS, "User registered successfully.", newUser)
         res.status(200).json(response);

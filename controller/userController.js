@@ -2,7 +2,7 @@ import eResultCode from "../utility/enum";
 import UserDetail from "../models/userModel";
 import UserMaster from "../models/authModel";
 import ResponseModel from "../utility/responseModel";
-import { where } from "sequelize";
+import validator from "../middleware/validator";
 
 const getUserList = async (req, res) => {
     try {
@@ -34,7 +34,25 @@ const getUserById = async (req, res) => {
 
 const addUser = async (req, res) => {
     try {
-        const { id = 0, name, email, age, contact } = req.body.data;
+        const {data} = req.body;
+        const { id = 0, name, email, age, contact } = data;
+        const validationRule = {
+            "name": "required|string",
+            "email": 'required|email',
+            "age": 'required|numeric',
+            "contact": 'required|numeric'
+        }
+        validator(data, validationRule, {}, (err, status) => {
+            if (!status) {
+                res.setHeader('Content-Type', 'application/json');
+                res.status(400)
+                    .send({
+                        success: false,
+                        message: 'Errors',
+                        data: err
+                    });
+            }
+        });
         if (id) {
             const result = await UserDetail.update(
                 { name, email, age, contact }, // fields to update
@@ -101,7 +119,6 @@ const removeUser = async (req, res) => {
         res.status(500).send("An error occurred while processing your request.");
     }
 };
-
 
 const getUserInfo = async (req, res) => {
     try {
